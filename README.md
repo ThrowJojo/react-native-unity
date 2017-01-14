@@ -1,6 +1,8 @@
 
 # react-native-unity
 
+This is a work in progress, I wouldn't bother using it yet because there's a lot of kinks to work out still...
+
 ## Getting started
 
 `$ npm install react-native-unity --save`
@@ -33,21 +35,10 @@
   	```
       compile project(':react-native-unity')
   	```
-
-#### Windows
-[Read it! :D](https://github.com/ReactWindows/react-native)
-
-1. In Visual Studio add the `RNUnity.sln` in `node_modules/react-native-unity/windows/RNUnity.sln` folder to their solution, reference from their app.
-2. Open up your `MainPage.cs` app
-  - Add `using Cl.Json.RNUnity;` to the usings at the top of the file
-  - Add `new RNUnityPackage()` to the `List<IReactPackage>` returned by the `Packages` method
-
-
+    
 ## Usage
 ```javascript
-import RNUnity from 'react-native-unity';
-
-// TODO: What do with the module?
-RNUnity;
+import UnityAds from 'react-native-unity';
+// TODO: Write about usage
 ```
   
