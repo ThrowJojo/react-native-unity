@@ -11,6 +11,8 @@ This is a work in progress, I wouldn't bother using it yet because there's a lot
 
 `$ react-native link react-native-unity`
 
+For iOS you will need to add the 'UnityAds.framework' file to your project's bundle.
+
 ### Manual installation
 
 
