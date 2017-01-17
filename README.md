@@ -13,8 +13,7 @@ This is a work in progress, I wouldn't bother using it yet because there's a lot
 
 For iOS you will need to add the 'UnityAds.framework' file to your project's bundle.
 
-### Manual installation
-
+### Manual installation (I really don't recommend this)
 
 #### iOS
 
@@ -38,9 +37,25 @@ For iOS you will need to add the 'UnityAds.framework' file to your project's bun
       compile project(':react-native-unity')
   	```
     
-## Usage
+## Initialization
 ```javascript
 import UnityAds from 'react-native-unity';
-// TODO: Write about usage
+
+UnityAds.loadAds('[appId]', true);
+
 ```
+
+## Showing your default placement
+```javascript
+UnityAds.showAd();
+```
+
+## Checking if a placement is ready, then showing that placement
+```javascript
+UnityAds.isReady('video', (ready) => {  
+    if (ready) UnityAds.showAdWithId('video');         
+});
+```
+
+
   
