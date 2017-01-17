@@ -15,13 +15,21 @@ RCT_EXPORT_METHOD(loadAds: (NSString*) appID testMode: (BOOL) testMode) {
     [UnityAds initialize:appID delegate:self testMode:testMode];
 }
 
+RCT_EXPORT_METHOD(isReady: (NSString*) placementId callback: (RCTResponseSenderBlock) callback) {
+    callback(@[@([UnityAds isReady:placementId])]);
+}
+
 RCT_EXPORT_METHOD(showAd) {
     if ([UnityAds isReady]) {
         [UnityAds show:[self rootViewController]];
     }
-    [self sendEventWithName:@"error" body:@{@"message": @"test error"}];
 }
 
+RCT_EXPORT_METHOD(showAdWithId: (NSString*) placementId) {
+    if ([UnityAds isReady:placementId]) {
+        [UnityAds show:[self rootViewController]];
+    }
+}
 
 - (NSArray<NSString *> *)supportedEvents {
     return @[@"ready", @"didStart", @"didFinish", @"error"];
@@ -40,11 +48,11 @@ RCT_EXPORT_METHOD(showAd) {
 }
 
 - (void)unityAdsDidFinish:(NSString *)placementId withFinishState:(UnityAdsFinishState)state {
-    [self sendEventWithName:@"didFinish" body:@{@"placementId": placementId}];
+    [self sendEventWithName:@"didFinish" body:@{@"placementId": placementId, @"finishState": [NSNumber numberWithInteger:state]}];
 }
 
 - (void)unityAdsDidError:(UnityAdsError)error withMessage:(NSString *)message {
-    [self sendEventWithName:@"error" body:@{@"message": message}];
+    [self sendEventWithName:@"error" body:@{@"message": message, @"error": [NSNumber numberWithInteger:error]}];
 }
 
 @end

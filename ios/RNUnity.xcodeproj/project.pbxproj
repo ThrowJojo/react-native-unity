@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7ACC38F81E289A9400036177 /* UnityAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ACC38F71E289A9400036177 /* UnityAds.framework */; };
 		B3E7B58A1CC2AC0600A0062D /* RNUnity.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* RNUnity.m */; };
 /* End PBXBuildFile section */
 
@@ -35,7 +34,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7ACC38F81E289A9400036177 /* UnityAds.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

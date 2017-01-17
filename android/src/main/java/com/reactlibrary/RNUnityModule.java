@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -35,12 +36,29 @@ public class RNUnityModule extends ReactContextBaseJavaModule implements IUnityA
   }
 
   @ReactMethod
+  public void isReady(String placementId, Callback callback) {
+    callback.invoke(UnityAds.isReady(placementId));
+  }
+
+  @ReactMethod
   public void showAd() {
     if (UnityAds.isReady()) {
       handler.post(new Runnable() {
         @Override
         public void run() {
           UnityAds.show(getCurrentActivity());
+        }
+      });
+    }
+  }
+
+  @ReactMethod
+  public void showAdWithId(final String placementId) {
+    if (UnityAds.isReady(placementId)) {
+      handler.post(new Runnable() {
+        @Override
+        public void run() {
+          UnityAds.show(getCurrentActivity(), placementId);
         }
       });
     }
@@ -57,9 +75,17 @@ public class RNUnityModule extends ReactContextBaseJavaModule implements IUnityA
     return params;
   }
 
-  private WritableMap messageParams(String message) {
+  private WritableMap finishParams(String placementId, int finishState) {
+    WritableMap params = Arguments.createMap();
+    params.putString("placementId", placementId);
+    params.putInt("finishState", finishState);
+    return params;
+  }
+
+  private WritableMap errorParams(String message, int error) {
     WritableMap params = Arguments.createMap();
     params.putString("message", message);
+    params.putInt("error", error);
     return params;
   }
 
@@ -75,12 +101,14 @@ public class RNUnityModule extends ReactContextBaseJavaModule implements IUnityA
 
   @Override
   public void onUnityAdsFinish(String placementId, UnityAds.FinishState finishState) {
-    reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("didFinish", placementIdParams(placementId));
+    reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("didFinish",
+            finishParams(placementId, finishState.ordinal()));
   }
 
   @Override
   public void onUnityAdsError(UnityAds.UnityAdsError unityAdsError, String message) {
-    reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("error", messageParams(message));
+    reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("error",
+            errorParams(message, unityAdsError.ordinal()));
   }
 
 }
