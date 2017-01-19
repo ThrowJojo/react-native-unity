@@ -57,5 +57,10 @@ UnityAds.isReady('video', (ready) => {
 });
 ```
 
-
+## Add a ready listener
+```javascript
+UnityAds.addReadyListener((data) => {
+    // data.placementId will tell you the placementId of the Ad that is ready
+});
+```
   
