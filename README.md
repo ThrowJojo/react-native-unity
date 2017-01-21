@@ -60,7 +60,22 @@ UnityAds.isReady('video', (ready) => {
 ## Add a ready listener
 ```javascript
 UnityAds.addReadyListener((data) => {
-    // data.placementId will tell you the placementId of the Ad that is ready
+    // data.placementId -> placementId of ad placement that is ready
+});
+```
+
+## Add a start listener
+```javascript
+UnityAds.addStartListener((data) => {
+    // data.placementId -> placementId of ad placement that has started
+});
+```
+
+## Add an error listener
+```javascript
+UnityAds.addErrorListener((data) => {
+    // data.message -> error message
+    // data.error -> number for the error, check the official SDK for more details
 });
 ```
   
