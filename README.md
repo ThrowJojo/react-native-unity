@@ -41,6 +41,7 @@ For iOS you will need to add the 'UnityAds.framework' file to your project's bun
 ```javascript
 import UnityAds from 'react-native-unity';
 
+// The second parameter turns test-mode on or off
 UnityAds.loadAds('[appId]', true);
 
 ```
@@ -68,6 +69,14 @@ UnityAds.addReadyListener((data) => {
 ```javascript
 UnityAds.addStartListener((data) => {
     // data.placementId -> placementId of ad placement that has started
+});
+```
+
+## Add a finish listener
+```javascript
+UnityAds.addFinishListener((data) => {
+    // data.placementId -> placementId of ad placement that finished
+    // data.finishState -> number for the finish state of the ad, check the official SDK for more details
 });
 ```
 
